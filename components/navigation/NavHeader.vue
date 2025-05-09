@@ -12,6 +12,7 @@
 
 <script setup lang="ts">
 import Info from "~/components/character/Info.vue";
+import Inventory from "../character/Inventory.vue";
 
 const windowStore = useWindowStore();
 
@@ -22,6 +23,7 @@ const headerActions = [
   },
   {
     title: "inventory",
+    action: () => windowStore.addWindow({ component: markRaw(Inventory) }),
   },
 ];
 </script>

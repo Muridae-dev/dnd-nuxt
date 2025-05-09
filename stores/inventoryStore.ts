@@ -1,5 +1,10 @@
 export const useInventoryStore = defineStore("inventoryStore", {
-  state: () => ({
+  state: (): any => ({
     inventory: [],
   }),
+  actions: {
+    addItem(item: any) {
+      this.inventory.push(item);
+    },
+  },
 });

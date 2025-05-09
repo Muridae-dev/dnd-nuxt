@@ -21,12 +21,12 @@ defineProps<WindowProps>();
   top: 100px;
   right: 100px;
 
+  max-height: 500px;
+  overflow: auto;
+
   border-radius: $border-radius-size;
   border: $border;
   background: rgb(172, 172, 172);
-
-  height: 500px;
-  width: 300px;
 }
 
 .window-options {
