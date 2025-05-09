@@ -1,15 +1,24 @@
 <template>
   <header>
-    <button class="menu-button" v-for="action in headerActions">
+    <button
+      class="menu-button"
+      v-for="action in headerActions"
+      @click="action.action"
+    >
       {{ action.title }}
     </button>
   </header>
 </template>
 
 <script setup lang="ts">
+import Info from "~/components/character/Info.vue";
+
+const windowStore = useWindowStore();
+
 const headerActions = [
   {
     title: "character",
+    action: () => windowStore.addWindow({ component: markRaw(Info) }),
   },
   {
     title: "inventory",
@@ -21,7 +30,7 @@ const headerActions = [
 header {
   height: $header-height;
   width: calc(100% - $side-spacing * 2);
-  border-radius: 5px;
+  border-radius: $border-radius-size;
 
   padding: 0px $side-spacing;
 
@@ -29,7 +38,7 @@ header {
   margin: $side-spacing auto 0;
 
   background: white;
-  border: 1px solid black;
+  border: $border;
 
   display: flex;
 

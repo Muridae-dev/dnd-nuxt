@@ -1,27 +1,32 @@
 <template>
-  <div class="gameplay-container" v-if="data">
-    <h2>{{ data?.meta.title }}</h2>
-    <article>{{ data?.meta.description }}</article>
-    <div class="class-stats" v-for="stat in Object.entries(data?.meta.stats)">
-      <span>{{ stat[0] }}:</span><span>{{ stat[1] }}</span>
-    </div>
-    <!-- <pre>{{ data }}</pre> -->
+  <div class="gameplay-container">
+    <Window
+      v-for="window in windowStore.windows"
+      :closeWindow="() => closeWindow(window)"
+    >
+      <component :is="window.component" />
+    </Window>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useAsyncData } from "nuxt/app";
+const windowStore = useWindowStore();
 
-const { data } = await useAsyncData("characterData", () =>
-  queryCollection("classes").first()
-);
+const closeWindow = (window: any) => {
+  const index = windowStore.windows.findIndex((w: any) => w === window);
+  if (index !== -1) {
+    windowStore.windows.splice(index, 1);
+  }
+};
+
+console.log(windowStore.windows);
 </script>
 
 <style lang="scss">
 .gameplay-container {
   height: calc(100vh - $header-height - $side-spacing * 3);
   width: calc(100% - $side-spacing * 2);
-  border-radius: 5px;
+  border-radius: $border-radius-size;
 
   padding: $side-spacing;
 
@@ -29,13 +34,6 @@ const { data } = await useAsyncData("characterData", () =>
   margin: $side-spacing auto 0;
 
   background: white;
-  border: 1px solid black;
-}
-
-.class-stats {
-  display: flex;
-  gap: 10px;
-
-  text-transform: capitalize;
+  border: $border;
 }
 </style>
