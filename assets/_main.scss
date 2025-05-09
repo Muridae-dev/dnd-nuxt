@@ -1,6 +1,6 @@
+@forward "./sizes";
 @forward "./colors";
-
-$side-spacing: 10px;
+@forward "./fonts";
 
 *,
 *::before,
@@ -11,12 +11,15 @@ $side-spacing: 10px;
 }
 
 body {
-  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
   line-height: 1.6;
 
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  font-family: CallingCode;
 }
 
 a {
@@ -27,6 +30,8 @@ button {
   cursor: pointer;
   background: transparent;
   border: none;
+
+  font-family: CallingCode;
 }
 
 a,

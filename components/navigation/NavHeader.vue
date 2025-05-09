@@ -19,16 +19,14 @@ const headerActions = [
 
 <style lang="scss">
 header {
-  height: 50px;
+  height: $header-height;
   width: calc(100% - $side-spacing * 2);
   border-radius: 5px;
 
   padding: 0px $side-spacing;
 
-  position: fixed;
-  top: $side-spacing;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  margin: $side-spacing auto 0;
 
   background: white;
   border: 1px solid black;
@@ -42,8 +40,6 @@ header {
     font-weight: bold;
     text-transform: capitalize;
     font-size: 1.2rem;
-
-    font-family: "Courier New", Courier, monospace;
   }
 }
 </style>
