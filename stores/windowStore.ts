@@ -15,9 +15,9 @@ export const useWindowStore = defineStore("windowStore", {
     addWindow({ component }: WindowOpenProps) {
       // TODO: this might need to be cleaner... Maybe not use find
       // TODO: remove any:s
-      const isWindowOpen = this.windows.find((w: any) => {
-        return w.component === component;
-      });
+      const isWindowOpen = this.windows.some(
+        (w: any) => w.component === component
+      );
       !isWindowOpen && this.windows.push({ component });
     },
     closeWindow(window: any) {
