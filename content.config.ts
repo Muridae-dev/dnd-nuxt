@@ -5,7 +5,11 @@ export default defineContentConfig({
     classes: defineCollection({
       source: "classes/*.md",
       type: "data",
-      schema: z.object({}),
+      schema: z.object({
+        id: z.string(),
+        name: z.string(),
+        stats: z.record(z.number()),
+      }),
     }),
   },
 });

@@ -1,6 +1,6 @@
 import type { Component } from "nuxt/schema";
 
-interface WindowOpenProps {
+interface WindowProps {
   component: Component;
   collectionName?: string;
   articleName?: string;
@@ -12,16 +12,14 @@ export const useWindowStore = defineStore("windowStore", {
   }),
 
   actions: {
-    addWindow({ component }: WindowOpenProps) {
-      // TODO: this might need to be cleaner... Maybe not use find
-      // TODO: remove any:s
+    addWindow({ component }: WindowProps) {
       const isWindowOpen = this.windows.some(
-        (w: any) => w.component === component
+        (w: WindowProps) => w.component === component
       );
       !isWindowOpen && this.windows.push({ component });
     },
-    closeWindow(window: any) {
-      const index = this.windows.findIndex((w: any) => w === window);
+    closeWindow(window: WindowProps) {
+      const index = this.windows.findIndex((w: WindowProps) => w === window);
       if (index !== -1) {
         this.windows.splice(index, 1);
       }
