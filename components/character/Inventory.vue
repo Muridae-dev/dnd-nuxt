@@ -5,7 +5,6 @@
     <div v-for="item in inventoryStore.inventory" :key="item.id" class="item">
       <h2>{{ item.name }}</h2>
 
-      <!-- Print generic stats -->
       <div v-if="item.stats">
         <h3>Stats:</h3>
         <ul>
@@ -33,8 +32,8 @@ const addRandomItem = () => {
 
 const formatKey = (key: string) => {
   return key
-    .replace(/([a-z])([A-Z])/g, "$1 $2") // Add a space before uppercase letters
-    .replace(/^[a-z]/, (match) => match.toUpperCase()); // Capitalize the first letter
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/^[a-z]/, (match) => match.toUpperCase());
 };
 </script>
 

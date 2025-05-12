@@ -7,7 +7,7 @@ interface WindowProps {
 }
 
 export const useWindowStore = defineStore("windowStore", {
-  state: (): any => ({
+  state: (): { windows: WindowProps[] } => ({
     windows: [],
   }),
 
