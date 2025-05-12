@@ -1,37 +1,46 @@
 <template>
   <header>
-    <button class="menu-button" v-for="action in headerActions">
+    <button
+      class="menu-button"
+      v-for="action in headerActions"
+      @click="action.action"
+    >
       {{ action.title }}
     </button>
   </header>
 </template>
 
 <script setup lang="ts">
+import Info from "~/components/character/Info.vue";
+import Inventory from "../character/Inventory.vue";
+
+const windowStore = useWindowStore();
+
 const headerActions = [
   {
     title: "character",
+    action: () => windowStore.addWindow({ component: markRaw(Info) }),
   },
   {
     title: "inventory",
+    action: () => windowStore.addWindow({ component: markRaw(Inventory) }),
   },
 ];
 </script>
 
 <style lang="scss">
 header {
-  height: 50px;
+  height: $header-height;
   width: calc(100% - $side-spacing * 2);
-  border-radius: 5px;
+  border-radius: $border-radius-size;
 
   padding: 0px $side-spacing;
 
-  position: fixed;
-  top: $side-spacing;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  margin: $side-spacing auto 0;
 
   background: white;
-  border: 1px solid black;
+  border: $border;
 
   display: flex;
 
@@ -42,8 +51,6 @@ header {
     font-weight: bold;
     text-transform: capitalize;
     font-size: 1.2rem;
-
-    font-family: "Courier New", Courier, monospace;
   }
 }
 </style>

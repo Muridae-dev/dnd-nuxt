@@ -1,4 +1,4 @@
-export type Classes = "rogue" | "warrior" | "wizard";
+export type Classes = "rogue" | "barbarian" | "wizard";
 
 export interface Stats {
   strength?: number;

@@ -5,6 +5,7 @@ export type GearType = "head" | "chest" | "legs" | "misc";
 export type ArmorClass = "mail" | "leather" | "cloth";
 
 export interface Item {
+  id: string;
   slot: GearType;
   stats: Stats;
   armorValue: number;
