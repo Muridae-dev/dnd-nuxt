@@ -7,7 +7,7 @@
     <div
       class="window-options"
       @mousedown="moveWindow"
-      @mouseup="stopMoveWindow"
+      @mouseup="stopWindowMovement"
     >
       <button class="window-close--button" @click="closeWindow">X</button>
     </div>
@@ -62,9 +62,13 @@ const moveWindow = (e: MouseEvent) => {
   console.log(outOfBoundsX.value, outOfBoundsY.value);
 
   window.addEventListener("mousemove", mouseMove);
+  window.addEventListener("mouseup", stopWindowMovement);
 };
 
-const stopMoveWindow = () => window.removeEventListener("mousemove", mouseMove);
+const stopWindowMovement = () => {
+  window.removeEventListener("mousemove", mouseMove);
+  window.removeEventListener("mouseup", stopWindowMovement);
+};
 
 defineProps<WindowProps>();
 </script>
