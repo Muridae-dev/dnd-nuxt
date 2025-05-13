@@ -1,6 +1,14 @@
 <template>
-  <div class="window-container">
-    <div class="window-options">
+  <div
+    class="window-container"
+    :style="{ top: `${windowY}px`, left: `${windowX}px` }"
+    ref="windowContainer"
+  >
+    <div
+      class="window-options"
+      @mousedown="moveWindow"
+      @mouseup="stopMoveWindow"
+    >
       <button class="window-close--button" @click="closeWindow">X</button>
     </div>
     <slot />
@@ -12,16 +20,58 @@ interface WindowProps {
   closeWindow: () => void;
 }
 
+const windowX = ref(0);
+const windowY = ref(0);
+
+const offsetX = ref(0);
+const offsetY = ref(0);
+
+const outOfBoundsX = ref(0);
+const outOfBoundsY = ref(0);
+
+const windowContainer = ref<HTMLElement | null>(null);
+
+const mouseMove = (eListen: MouseEvent) => {
+  eListen.preventDefault();
+
+  // 11 & 72 are the relative distance on each axis to the parent-node
+  const valueX = eListen.x - offsetX.value - 11;
+  const valueY = eListen.y - offsetY.value - 72;
+
+  if (valueX > 0 && valueX < outOfBoundsX.value) windowX.value = valueX;
+  else if (valueX > outOfBoundsX.value) windowX.value = outOfBoundsX.value;
+  else windowX.value = 0;
+
+  if (valueY > 0 && valueY < outOfBoundsY.value) windowY.value = valueY;
+  else if (valueY > outOfBoundsY.value) windowY.value = outOfBoundsY.value;
+  else windowY.value = 0;
+};
+
+const moveWindow = (e: MouseEvent) => {
+  offsetX.value = e.offsetX;
+  offsetY.value = e.offsetY;
+
+  windowContainer.value?.offsetWidth;
+  windowContainer.value?.offsetWidth;
+
+  outOfBoundsX.value =
+    window.innerWidth - 11 * 2 - windowContainer.value?.offsetWidth;
+  outOfBoundsY.value =
+    window.innerHeight - (72 + 11) - windowContainer.value?.offsetHeight;
+
+  console.log(outOfBoundsX.value, outOfBoundsY.value);
+
+  window.addEventListener("mousemove", mouseMove);
+};
+
+const stopMoveWindow = () => window.removeEventListener("mousemove", mouseMove);
+
 defineProps<WindowProps>();
 </script>
 
 <style lang="scss">
 .window-container {
   position: absolute;
-  bottom: 50px;
-  right: 300px;
-
-  max-height: 500px;
 
   border-radius: $border-radius-size;
   border: $border;
