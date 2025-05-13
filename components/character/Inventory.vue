@@ -2,17 +2,15 @@
   <div class="inventory-container">
     <button @click="addRandomItem">ADD RANDOM ITEM</button>
 
-    <div v-for="item in inventoryStore.inventory" :key="item.id" class="item">
-      <h2>{{ item.name }}</h2>
-
-      <div v-if="item.stats">
-        <h3>Stats:</h3>
-        <ul>
-          <li v-for="(value, statKey) in item.stats" :key="statKey">
-            {{ formatKey(statKey) }}: {{ value }}
-          </li>
-        </ul>
+    <div class="inventory-grid">
+      <div class="inventory-cell" v-for="item in inventoryStore.inventory">
+        {{ item.name }}
+        <ItemSpecs :item="item" />
       </div>
+      <div
+        class="inventory-cell"
+        v-for="n in 25 - inventoryStore.inventory.length"
+      ></div>
     </div>
   </div>
 </template>
@@ -29,16 +27,50 @@ const addRandomItem = () => {
 
   inventoryStore.addItem(randomItem);
 };
-
-const formatKey = (key: string) => {
-  return key
-    .replace(/([a-z])([A-Z])/g, "$1 $2")
-    .replace(/^[a-z]/, (match) => match.toUpperCase());
-};
 </script>
 
 <style lang="scss">
+$cell-size: 80px;
+$cell-gap: 2px;
+
 .inventory-container {
-  width: 500px;
+  padding: $cell-gap;
+}
+
+.inventory-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, $cell-size);
+  grid-template-rows: repeat(5, $cell-size);
+  gap: $cell-gap;
+}
+
+.inventory-cell {
+  position: relative;
+
+  width: $cell-size;
+  height: $cell-size;
+  border: 1px solid black;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.4);
+
+  &:hover {
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      aspect-ratio: 1/1;
+
+      background: #ffffff;
+      background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 60%,
+        rgba(252, 173, 70, 1) 100%
+      );
+    }
+  }
 }
 </style>

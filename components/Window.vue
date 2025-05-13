@@ -18,11 +18,10 @@ defineProps<WindowProps>();
 <style lang="scss">
 .window-container {
   position: absolute;
-  top: 100px;
-  right: 100px;
+  bottom: 50px;
+  right: 300px;
 
   max-height: 500px;
-  overflow: auto;
 
   border-radius: $border-radius-size;
   border: $border;
