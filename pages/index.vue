@@ -6,6 +6,7 @@
     >
       <component :is="window.component" />
     </Window>
+    <Map />
   </div>
 </template>
 
