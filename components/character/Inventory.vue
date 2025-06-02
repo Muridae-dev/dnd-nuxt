@@ -23,9 +23,12 @@ const { data } = await useAsyncData("itemData", () =>
 );
 
 const addRandomItem = () => {
-  const randomItem = data.value[Math.floor(Math.random() * data.value.length)];
+  if (data.value) {
+    const randomItem =
+      data.value[Math.floor(Math.random() * data.value.length)];
 
-  inventoryStore.addItem(randomItem);
+    inventoryStore.addItem(randomItem);
+  }
 };
 </script>
 
