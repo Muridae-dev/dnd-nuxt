@@ -13,11 +13,19 @@
 
       <NuxtLink to="/">Back to dashboard</NuxtLink>
     </div>
+
+    <!-- <pre>{{ data }}</pre> -->
   </GameplayContainer>
 </template>
 
 <script setup lang="ts">
 const isDialogueOpen = ref(false);
+
+const { data } = await useAsyncData("content", () =>
+  loadDialogue("the-town/intro/intro")
+);
+
+data.value && console.log(parseDialogue(data.value));
 </script>
 
 <style lang="scss">
