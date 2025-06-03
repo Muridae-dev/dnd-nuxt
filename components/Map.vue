@@ -38,18 +38,35 @@
           id="path7"
         />
       </g>
-      <g id="the-town" style="display: inline" @mouseenter="bringToFront">
-        <path
-          style="
-            display: inline;
-            fill: rgb(200, 120, 80);
-            stroke: #000000;
-            stroke-opacity: 1;
-          "
-          d="m 3.9105646,427.55505 194.2246954,-72.9972 87.33595,32.58804 117.31693,198.13526 -16.94578,58.65848 -170.76132,145.9944 -211.1704754,-10e-6 z"
-          id="path1"
-        />
-      </g>
+
+      <NuxtLink
+        to="/the-town"
+        @mouseenter="bringToFront"
+        style="display: inline; position: relative"
+      >
+        <g id="the-town">
+          <path
+            style="
+              display: inline;
+              fill: rgb(200, 120, 80);
+              stroke: #000000;
+              stroke-opacity: 1;
+            "
+            d="m 3.9105646,427.55505 194.2246954,-72.9972 87.33595,32.58804 117.31693,198.13526 -16.94578,58.65848 -170.76132,145.9944 -211.1704754,-10e-6 z"
+            id="path1"
+          />
+          <text
+            x="15%"
+            y="75%"
+            text-anchor="middle"
+            dominant-baseline="middle"
+            class="area-title-svg"
+          >
+            THE TOWN
+          </text>
+        </g>
+      </NuxtLink>
+
       <g id="the-haze" @mouseenter="bringToFront">
         <path
           style="fill: rgb(140, 140, 160); stroke: #000000; stroke-opacity: 1"
@@ -99,5 +116,12 @@ g {
 
 g:hover {
   transform: scale(1.08);
+}
+
+.area-title-svg {
+  fill: white;
+  font-size: 24px;
+  font-weight: bold;
+  pointer-events: none;
 }
 </style>
