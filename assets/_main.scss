@@ -22,21 +22,11 @@ body {
   font-family: CallingCode;
 }
 
-a {
-  text-decoration: none;
-}
-
+a,
 button {
   all: unset;
   cursor: pointer;
-  background: transparent;
-  border: none;
-
   font-family: CallingCode;
-}
-
-a,
-button {
   color: var(--secondary);
   padding: 0;
 }
