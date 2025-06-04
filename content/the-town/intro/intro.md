@@ -1,6 +1,13 @@
 # [The guide]
 
 - Welcome traveler, to our humble town.
+
+# [You]
+
+- Thank you
+
+# [The guide]
+
 - You're coming to us in troubling times.
 - Usually you would find us in higher spirits, but bandits have been harassing us for the last year.
 - Stealing our crops & taking our women.

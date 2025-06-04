@@ -6,14 +6,14 @@ export const parseDialogue = (dialogue: string) => {
       const choiceTitle = m.split("### ")[1].split(/\n/)[0];
       return {
         choiceTitle,
-        data: splitDialogue(m.split(choiceTitle).splice(1)[0]),
+        dialogueData: splitDialogue(m.split(choiceTitle).splice(1)[0]),
       };
     } else {
-      return { data: splitDialogue(m) };
+      return { dialogueData: splitDialogue(m) };
     }
   });
 
-  return { map1, map2 };
+  return map2;
 };
 
 const splitByNs = (array: string) => {
