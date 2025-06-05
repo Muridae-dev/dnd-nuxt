@@ -1,12 +1,6 @@
-import fs from "fs/promises";
-
-import path from "path";
-
-export const loadDialogue = async (id: string) => {
-  const filePath = path.resolve("content", `${id}.md`);
-  const raw = await fs.readFile(filePath, "utf-8");
-
-  const parsed = parseDialogue(raw);
-
-  return parsed;
+export const loadDialogue = async () => {
+  const base = useRequestURL();
+  const res = await fetch(`${base.origin}/dialogues/the-town/intro/intro.md`);
+  const raw = await res.text();
+  return parseDialogue(raw);
 };

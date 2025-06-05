@@ -19,9 +19,9 @@
 <script setup lang="ts">
 const isDialogueOpen = ref(false);
 
-const { data } = await useAsyncData("content", () =>
-  loadDialogue("the-town/intro/intro")
-);
+const { data } = await useAsyncData("content", () => loadDialogue(), {
+  server: true,
+});
 </script>
 
 <style lang="scss">
