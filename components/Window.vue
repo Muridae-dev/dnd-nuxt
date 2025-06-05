@@ -59,8 +59,6 @@ const moveWindow = (e: MouseEvent) => {
   outOfBoundsY.value =
     window.innerHeight - (72 + 11) - windowContainer.value?.offsetHeight;
 
-  console.log(outOfBoundsX.value, outOfBoundsY.value);
-
   window.addEventListener("mousemove", mouseMove);
   window.addEventListener("mouseup", stopWindowMovement);
 };
@@ -80,9 +78,18 @@ defineProps<WindowProps>();
   border-radius: $border-radius-size;
   border: $border;
   background: rgb(172, 172, 172);
+
+  max-height: 100%;
+  max-width: 100%;
+
+  overflow: auto;
 }
 
 .window-options {
+  position: sticky;
+  top: 0;
+  left: 0;
+
   display: flex;
   justify-content: flex-end;
   align-items: center;
