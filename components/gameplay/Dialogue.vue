@@ -39,6 +39,8 @@ const currentChoice = ref<string | false>(false);
 
 const isMakingAChoice = ref(false);
 
+const textSpeed = 20;
+
 watch(currentChoice, () => {
   if (currentChoice.value) {
     currentDialogue.value = props.data.findIndex(
@@ -61,13 +63,11 @@ const typeWriter = () => {
     props.data[currentDialogue.value].dialogueData[currentPerson.value]
       .dialogue[currentPhrase.value];
 
-  console.log(currentText);
-
   if (currentText)
     if (scrollingTextIndex.value < currentText.length) {
       scrollingText.value += currentText.charAt(scrollingTextIndex.value);
       scrollingTextIndex.value++;
-      setTimeout(typeWriter, 10);
+      setTimeout(typeWriter, textSpeed);
     }
 };
 
@@ -109,6 +109,7 @@ const updateDialogue = () => {
 
   h2 {
     text-transform: uppercase;
+    user-select: none;
   }
 
   span {
@@ -123,6 +124,7 @@ const updateDialogue = () => {
 
   button {
     padding: 0 5px;
+    user-select: none;
   }
 
   button:hover {
