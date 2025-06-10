@@ -44,7 +44,7 @@ const formatKey = (key: string) => {
 
   border-radius: $border-radius-size;
   border: $border;
-  background: rgb(172, 172, 172);
+  background: $window-background;
 }
 
 .inventory-cell:hover {

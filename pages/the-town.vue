@@ -8,8 +8,8 @@
       <Window
         v-if="isDialogueOpen"
         :closeWindow="() => (isDialogueOpen = false)"
-        ><div class="dialogue-container">HAHA Welcome to the town</div></Window
-      >
+        ><GameplayDialogue v-if="data" :data="data"
+      /></Window>
 
       <NuxtLink to="/">Back to dashboard</NuxtLink>
     </div>
@@ -18,6 +18,10 @@
 
 <script setup lang="ts">
 const isDialogueOpen = ref(false);
+
+const { data } = await useAsyncData("content", () => loadDialogue(), {
+  server: true,
+});
 </script>
 
 <style lang="scss">
@@ -25,9 +29,5 @@ const isDialogueOpen = ref(false);
   display: flex;
   flex-direction: column;
   width: fit-content;
-}
-
-.dialogue-container {
-  padding: 5px 10px;
 }
 </style>

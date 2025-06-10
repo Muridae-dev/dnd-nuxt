@@ -1,7 +1,11 @@
 <template>
   <div
     class="window-container"
-    :style="{ top: `${windowY}px`, left: `${windowX}px` }"
+    :style="{
+      top: windowY ? `${windowY}px` : '50%',
+      left: windowX ? `${windowX}px` : '50%',
+      transform: !windowX ? 'translate(-50%, -50%)' : 'unset',
+    }"
     ref="windowContainer"
   >
     <div
@@ -20,8 +24,8 @@ interface WindowProps {
   closeWindow: () => void;
 }
 
-const windowX = ref(0);
-const windowY = ref(0);
+const windowX = ref<null | number>(null);
+const windowY = ref<null | number>(null);
 
 const offsetX = ref(0);
 const offsetY = ref(0);
@@ -54,12 +58,14 @@ const moveWindow = (e: MouseEvent) => {
   windowContainer.value?.offsetWidth;
   windowContainer.value?.offsetWidth;
 
+  windowContainer.value
+    ?.querySelector(".window-options")
+    ?.classList.add("active");
+
   outOfBoundsX.value =
     window.innerWidth - 11 * 2 - windowContainer.value?.offsetWidth;
   outOfBoundsY.value =
     window.innerHeight - (72 + 11) - windowContainer.value?.offsetHeight;
-
-  console.log(outOfBoundsX.value, outOfBoundsY.value);
 
   window.addEventListener("mousemove", mouseMove);
   window.addEventListener("mouseup", stopWindowMovement);
@@ -68,6 +74,9 @@ const moveWindow = (e: MouseEvent) => {
 const stopWindowMovement = () => {
   window.removeEventListener("mousemove", mouseMove);
   window.removeEventListener("mouseup", stopWindowMovement);
+  windowContainer.value
+    ?.querySelector(".window-options")
+    ?.classList.remove("active");
 };
 
 defineProps<WindowProps>();
@@ -79,31 +88,46 @@ defineProps<WindowProps>();
 
   border-radius: $border-radius-size;
   border: $border;
-  background: rgb(172, 172, 172);
+  background: $window-background;
+
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .window-options {
+  position: sticky;
+  top: 0;
+  left: 0;
+
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  cursor: grab;
 
   height: 20px;
   border-bottom: $border;
   padding-right: 5px;
 
-  background: rgb(52, 52, 52);
+  background: $window-top-bar-color;
+
+  &.active {
+    cursor: grabbing;
+  }
 }
 
 .window-close--button {
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 
   border-radius: 100%;
-  height: calc(100% - 5px);
+  height: calc(100% - 7px);
   aspect-ratio: 1/1;
+  padding: 2px;
 
-  background: red;
+  filter: invert(100%);
+  background: $window-top-bar-color;
   color: black;
 
   font-family: DS-Digital;
