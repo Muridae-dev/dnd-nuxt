@@ -2,11 +2,7 @@
   <div class="dialogue-container">
     <div @click="() => updateDialogue()" v-if="!isMakingAChoice">
       <h2>{{ data[currentDialogue].dialogueData[currentPerson].person }}</h2>
-      <span>{{
-        data[currentDialogue].dialogueData[currentPerson].dialogue[
-          currentPhrase
-        ]
-      }}</span>
+      <span>{{ scrollingText }}</span>
     </div>
 
     <div v-if="isMakingAChoice" class="choice-container">
@@ -34,6 +30,8 @@ import type { Dialogue } from "~/types/dialogueTypes";
 const props = defineProps<{ data: Dialogue[] }>();
 
 const currentDialogue = ref(0);
+const scrollingText = ref("");
+const scrollingTextIndex = ref(0);
 const currentPerson = ref(0);
 const currentPhrase = ref(0);
 
@@ -42,10 +40,6 @@ const currentChoice = ref<string | false>(false);
 const isMakingAChoice = ref(false);
 
 watch(currentChoice, () => {
-  console.log(
-    props.data.findIndex((i) => i.choiceTitle === currentChoice.value)
-  );
-
   if (currentChoice.value) {
     currentDialogue.value = props.data.findIndex(
       (i) => i.choiceTitle === currentChoice.value
@@ -53,8 +47,29 @@ watch(currentChoice, () => {
     currentPerson.value = 0;
     currentPhrase.value = 0;
     isMakingAChoice.value = false;
+
+    typeWriter();
   }
 });
+
+onMounted(() => {
+  typeWriter();
+});
+
+const typeWriter = () => {
+  const currentText =
+    props.data[currentDialogue.value].dialogueData[currentPerson.value]
+      .dialogue[currentPhrase.value];
+
+  console.log(currentText);
+
+  if (currentText)
+    if (scrollingTextIndex.value < currentText.length) {
+      scrollingText.value += currentText.charAt(scrollingTextIndex.value);
+      scrollingTextIndex.value++;
+      setTimeout(typeWriter, 10);
+    }
+};
 
 const updateDialogue = () => {
   currentPhrase.value++;
@@ -79,6 +94,10 @@ const updateDialogue = () => {
   ) {
     isMakingAChoice.value = true;
   }
+
+  scrollingText.value = "";
+  scrollingTextIndex.value = 0;
+  typeWriter();
 };
 </script>
 
@@ -86,9 +105,15 @@ const updateDialogue = () => {
 .dialogue-container {
   width: 500px;
   padding: 5px 10px;
+  cursor: pointer;
 
   h2 {
     text-transform: uppercase;
+  }
+
+  span {
+    user-select: none;
+    pointer-events: none;
   }
 }
 
