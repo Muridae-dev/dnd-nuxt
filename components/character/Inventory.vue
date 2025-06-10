@@ -55,7 +55,7 @@ $cell-gap: 2px;
   height: $cell-size;
   border: 1px solid black;
   box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.2);
 
   &:hover {
     &::after {
