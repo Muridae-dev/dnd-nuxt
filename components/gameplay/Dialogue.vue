@@ -1,40 +1,26 @@
 <template>
   <div class="dialogue-container">
     <div @click="() => updateDialogue()" v-if="!isMakingAChoice">
-      <!-- MAKE THIS A COMPONENT -->
-      <figure>
-        <img
-          :src="`/placeholders/${getCharacterImage(
-            data[currentDialogue].dialogueData[currentPerson].person
-          )}.webp`"
-          class="image-contrast"
-        />
-        <figcaption>
-          {{ data[currentDialogue].dialogueData[currentPerson].person }}
-        </figcaption>
-      </figure>
-      <!-- MAKE THIS A COMPONENT -->
+      <GameplayDialogueIcon
+        :characterName="
+          data[currentDialogue].dialogueData[currentPerson].person
+        "
+        :caption="data[currentDialogue].dialogueData[currentPerson].person"
+      />
       <span>{{ scrollingText }}</span>
     </div>
 
     <div v-if="isMakingAChoice" class="choice-container">
-      <!-- TODO: MAKE THIS A COMPONENT -->
-      <figure>
-        <img
-          :src="`/placeholders/${getCharacterImage(
-            data[currentDialogue].dialogueData[currentPerson].person
-          )}.webp`"
-          class="image-contrast"
-        />
-        <figcaption>
-          {{
-            data[currentDialogue].dialogueData[currentPerson].dialogue[
-              currentPhrase - 1
-            ]
-          }}
-        </figcaption>
-      </figure>
-      <!-- MAKE THIS A COMPONENT -->
+      <GameplayDialogueIcon
+        :characterName="
+          data[currentDialogue].dialogueData[currentPerson].person
+        "
+        :caption="
+          data[currentDialogue].dialogueData[currentPerson].dialogue[
+            currentPhrase - 1
+          ]
+        "
+      />
       <button
         v-for="choice in data[currentDialogue].dialogueData[currentPerson]
           .choices"
@@ -128,20 +114,6 @@ const updateDialogue = () => {
   width: 500px;
   padding: 5px 10px;
   cursor: pointer;
-
-  figure {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-  }
-
-  figcaption {
-    line-height: 1.1rem;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    user-select: none;
-  }
 
   span {
     user-select: none;
