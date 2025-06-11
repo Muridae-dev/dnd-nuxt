@@ -1,18 +1,40 @@
 <template>
   <div class="dialogue-container">
     <div @click="() => updateDialogue()" v-if="!isMakingAChoice">
-      <h2>{{ data[currentDialogue].dialogueData[currentPerson].person }}</h2>
+      <!-- MAKE THIS A COMPONENT -->
+      <figure>
+        <img
+          :src="`/placeholders/${getCharacterImage(
+            data[currentDialogue].dialogueData[currentPerson].person
+          )}.webp`"
+          class="image-contrast"
+        />
+        <figcaption>
+          {{ data[currentDialogue].dialogueData[currentPerson].person }}
+        </figcaption>
+      </figure>
+      <!-- MAKE THIS A COMPONENT -->
       <span>{{ scrollingText }}</span>
     </div>
 
     <div v-if="isMakingAChoice" class="choice-container">
-      <h2>
-        {{
-          data[currentDialogue].dialogueData[currentPerson].dialogue[
-            currentPhrase - 1
-          ]
-        }}
-      </h2>
+      <!-- TODO: MAKE THIS A COMPONENT -->
+      <figure>
+        <img
+          :src="`/placeholders/${getCharacterImage(
+            data[currentDialogue].dialogueData[currentPerson].person
+          )}.webp`"
+          class="image-contrast"
+        />
+        <figcaption>
+          {{
+            data[currentDialogue].dialogueData[currentPerson].dialogue[
+              currentPhrase - 1
+            ]
+          }}
+        </figcaption>
+      </figure>
+      <!-- MAKE THIS A COMPONENT -->
       <button
         v-for="choice in data[currentDialogue].dialogueData[currentPerson]
           .choices"
@@ -107,7 +129,16 @@ const updateDialogue = () => {
   padding: 5px 10px;
   cursor: pointer;
 
-  h2 {
+  figure {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  figcaption {
+    line-height: 1.1rem;
+    font-size: 1.5rem;
     text-transform: uppercase;
     user-select: none;
   }
@@ -121,6 +152,7 @@ const updateDialogue = () => {
 .choice-container {
   display: flex;
   flex-direction: column;
+  cursor: default;
 
   button {
     padding: 0 5px;

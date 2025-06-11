@@ -5,7 +5,10 @@
     :to="href && href"
   >
     <figure class="icon--container">
-      <img :src="`/placeholders/${iconType}/${iconName}.webp`" />
+      <img
+        :src="`/placeholders/${iconType}/${iconName}.webp`"
+        class="image-contrast"
+      />
       <figcaption>
         {{ title }}
       </figcaption>
@@ -47,9 +50,6 @@ defineProps<IconProps>();
   img {
     width: 80px;
     aspect-ratio: 1/1;
-
-    // filter: grayscale(100%) contrast(400%);
-    filter: contrast(150%);
   }
 }
 </style>

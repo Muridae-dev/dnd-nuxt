@@ -4,7 +4,10 @@
 
     <div class="inventory-grid">
       <div class="inventory-cell" v-for="item in inventoryStore.inventory">
-        <img :src="`/placeholders/${item.iconType}/${item.iconName}.webp`" />
+        <img
+          :src="`/placeholders/${item.iconType}/${item.iconName}.webp`"
+          class="image-contrast"
+        />
         <ItemSpecs :item="item" />
       </div>
       <div

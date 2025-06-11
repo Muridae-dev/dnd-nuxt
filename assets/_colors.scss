@@ -5,3 +5,8 @@ $window-top-bar-color: rgb(255, 255, 255);
 body {
   background: $primary-background;
 }
+
+.image-contrast {
+  filter: contrast(150%);
+  // filter: grayscale(100%) contrast(400%);
+}
