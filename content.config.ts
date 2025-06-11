@@ -17,7 +17,8 @@ export default defineContentConfig({
       schema: z.object({
         id: z.string(),
         name: z.string(),
-
+        iconType: z.string(),
+        iconName: z.string(),
         stats: z.object({
           attackPower: z.number().optional(),
           armorValue: z.number().optional(),

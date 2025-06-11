@@ -4,7 +4,7 @@
 
     <div class="inventory-grid">
       <div class="inventory-cell" v-for="item in inventoryStore.inventory">
-        {{ item.name }}
+        <img :src="`/placeholders/${item.iconType}/${item.iconName}.webp`" />
         <ItemSpecs :item="item" />
       </div>
       <div
@@ -56,6 +56,10 @@ $cell-gap: 2px;
   border: 1px solid black;
   box-sizing: border-box;
   background: rgba(0, 0, 0, 0.2);
+
+  img {
+    width: 100%;
+  }
 
   &:hover {
     &::after {

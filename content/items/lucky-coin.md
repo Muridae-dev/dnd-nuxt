@@ -1,6 +1,8 @@
 ---
 id: lucky-coin
 name: Lucky Coin
+iconType: items
+iconName: gold-coin
 stats:
   value: 10
   playerStats:
