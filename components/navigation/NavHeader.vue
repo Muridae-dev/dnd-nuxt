@@ -39,7 +39,7 @@ header {
   position: relative;
   margin: $side-spacing auto 0;
 
-  background: white;
+  background: $gameplay-background;
   border: $border;
 
   display: flex;
