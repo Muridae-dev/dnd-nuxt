@@ -1,18 +1,26 @@
 <template>
   <div class="dialogue-container">
     <div @click="() => updateDialogue()" v-if="!isMakingAChoice">
-      <h2>{{ data[currentDialogue].dialogueData[currentPerson].person }}</h2>
+      <GameplayDialogueIcon
+        :characterName="
+          data[currentDialogue].dialogueData[currentPerson].person
+        "
+        :caption="data[currentDialogue].dialogueData[currentPerson].person"
+      />
       <span>{{ scrollingText }}</span>
     </div>
 
     <div v-if="isMakingAChoice" class="choice-container">
-      <h2>
-        {{
+      <GameplayDialogueIcon
+        :characterName="
+          data[currentDialogue].dialogueData[currentPerson].person
+        "
+        :caption="
           data[currentDialogue].dialogueData[currentPerson].dialogue[
             currentPhrase - 1
           ]
-        }}
-      </h2>
+        "
+      />
       <button
         v-for="choice in data[currentDialogue].dialogueData[currentPerson]
           .choices"
@@ -107,11 +115,6 @@ const updateDialogue = () => {
   padding: 5px 10px;
   cursor: pointer;
 
-  h2 {
-    text-transform: uppercase;
-    user-select: none;
-  }
-
   span {
     user-select: none;
     pointer-events: none;
@@ -121,6 +124,7 @@ const updateDialogue = () => {
 .choice-container {
   display: flex;
   flex-direction: column;
+  cursor: default;
 
   button {
     padding: 0 5px;

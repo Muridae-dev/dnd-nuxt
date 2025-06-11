@@ -6,10 +6,13 @@ export type ArmorClass = "mail" | "leather" | "cloth";
 
 export interface Item {
   id: string;
+  name: string;
   slot: GearType;
   stats: Stats;
   armorValue: number;
   armorClass: ArmorClass;
+  iconType: string;
+  iconName: string;
 }
 
 export type Gear = {

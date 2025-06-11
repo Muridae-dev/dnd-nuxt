@@ -101,6 +101,8 @@ const bringToFront = (e: Event) => {
   align-items: center;
   overflow: visible;
 
+  filter: saturate(200%);
+
   svg {
     height: 100%;
     overflow: visible;

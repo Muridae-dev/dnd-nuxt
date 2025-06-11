@@ -21,6 +21,8 @@
     );
   background-size: 100% 2px, 3px 100%;
   pointer-events: none;
+
+  filter: invert(50%);
 }
 
 .background-grain {

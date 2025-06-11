@@ -1,5 +1,7 @@
 ---
 id: barbarians-cap
+iconType: misc
+iconName: placeholder
 name: Barbarians Cap
 stats:
   armorValue: 8
