@@ -7,8 +7,10 @@
 </template>
 
 <script setup lang="ts">
+import type { ItemsCollectionItem } from "@nuxt/content";
+
 interface InventoryGridProps {
-  items: any[];
+  items: ItemsCollectionItem[];
 }
 
 defineProps<InventoryGridProps>();

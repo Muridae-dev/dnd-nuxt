@@ -1,6 +1,6 @@
 <template>
   <div class="store--container">
-    <ItemInventoryGrid v-if="data" :items="data" />
+    <ItemInventoryGrid v-if="data" :items="data.filter((d) => d != null)" />
   </div>
 </template>
 
@@ -16,8 +16,6 @@ const { data } = await useAsyncData("storeData", async () => {
     )
   );
 });
-
-console.log("data:: ", data.value);
 </script>
 
 <style lang="scss">

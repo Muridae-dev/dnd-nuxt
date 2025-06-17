@@ -9,8 +9,9 @@
 </template>
 
 <script setup lang="ts">
-// TODO: Change this to match item type in Inventory when it's made
-defineProps<{ item: any }>();
+import type { ItemsCollectionItem } from "@nuxt/content";
+
+defineProps<{ item: ItemsCollectionItem }>();
 </script>
 
 <style lang="scss">

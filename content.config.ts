@@ -19,12 +19,12 @@ export default defineContentConfig({
         name: z.string(),
         iconType: z.string(),
         iconName: z.string(),
+        value: z.number().optional(),
+        slot: z.string().optional(),
         stats: z.object({
           attackPower: z.number().optional(),
           armorValue: z.number().optional(),
           armorClass: z.enum(["cloth", "leather", "mail"]).optional(),
-
-          value: z.number(),
 
           playerStats: z.record(z.number()).optional(),
         }),
