@@ -47,7 +47,8 @@ const formatKey = (key: string) => {
   background: $window-background;
 }
 
-.thumbnail--container:hover {
+.inventory-cell:hover,
+.store-item--container:hover {
   .item-specs-container {
     display: inline;
   }

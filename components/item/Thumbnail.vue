@@ -1,11 +1,8 @@
 <template>
-  <div class="thumbnail--container">
-    <img
-      :src="`/placeholders/${item.iconType}/${item.iconName}.webp`"
-      class="image-contrast"
-    />
-    <ItemSpecs :item="item" />
-  </div>
+  <img
+    :src="`/placeholders/${item.iconType}/${item.iconName}.webp`"
+    class="image-contrast thumbnail--image"
+  />
 </template>
 
 <script setup lang="ts">
@@ -15,9 +12,7 @@ defineProps<{ item: ItemsCollectionItem }>();
 </script>
 
 <style lang="scss">
-.thumbnail--container {
-  img {
-    width: 100%;
-  }
+.thumbnail--image {
+  width: 100%;
 }
 </style>
