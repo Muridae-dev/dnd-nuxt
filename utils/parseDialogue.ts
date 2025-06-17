@@ -1,7 +1,9 @@
-export const parseDialogue = (dialogue: string) => {
-  const map1 = dialogue.split("---");
+import type { DialogueData } from "~/types/optionTypes";
 
-  const dialogues = map1.map((m) => {
+export const parseDialogue = (rawDialogues: string) => {
+  const splitDialogues = rawDialogues.split("---");
+
+  const dialogues = splitDialogues.map((m) => {
     if (m.split("###")[1]) {
       const choiceTitle = m.split("### ")[1].split(/\n/)[0];
       return {
@@ -13,7 +15,7 @@ export const parseDialogue = (dialogue: string) => {
     }
   });
 
-  let finished: any = dialogue.split("### FINISHED {")[1];
+  let finished: any = rawDialogues.split("### FINISHED {")[1];
   if (finished) {
     finished = finished.split("}")[0].trim();
 
@@ -32,10 +34,10 @@ const formatParagraphs = (str: string) => {
     .filter(Boolean);
 };
 
-const splitDialogue = (dialogue: string) => {
-  let dialogues: { person: string; dialogue: string[]; choices?: any }[] = [];
-  dialogue.split("# [")[1] &&
-    dialogue.split("# [").forEach((s) => {
+const splitDialogue = (rawDialogue: string) => {
+  let dialogues: DialogueData[] = [];
+  rawDialogue.split("# [")[1] &&
+    rawDialogue.split("# [").forEach((s) => {
       if (s.includes("# [")) return;
       else if (s.includes("]")) {
         const person = s.split("]")[0];

@@ -1,16 +1,20 @@
+import type { OptionsProps } from "~/types/optionTypes";
+
 export const useTheTownStore = defineStore("theTownStore", {
-  state: (): any => ({
+  state: (): { options: OptionsProps[]; optionsToShow: OptionsProps[] } => ({
     options: [
       {
+        type: "dialogue",
         iconType: "npcs",
         iconName: "wise-man",
         title: "Open Dialogue",
         src: "intro/intro",
       },
       {
+        type: "store",
         iconType: "npcs",
         iconName: "villager-1",
-        title: "Store",
+        title: "Shopkeeper",
         src: "store/store",
       },
     ],

@@ -11,11 +11,16 @@
 
         <Window v-if="data.isOpen" :closeWindow="() => (data.isOpen = false)"
           ><GameplayDialogue
-            v-if="data.data.dialogues"
-            :data="data.data.dialogues"
-            :finished="data.data.finished"
+            v-if="data.type === 'dialogue'"
+            :data="data.dialogues"
+            :finished="data.finished"
             :closeWindow="() => (data.isOpen = false)"
-        /></Window>
+          />
+          <GameplayStore
+            v-else-if="data.type === 'store'"
+            :storeData="data.storeData"
+          />
+        </Window>
       </template>
 
       <GameplayIcon
@@ -23,44 +28,59 @@
         iconName="map"
         title="Return to Dashboard"
         href="/"
-        class="dashboard-icon"
       />
     </div>
   </GameplayContainer>
 </template>
 
 <script setup lang="ts">
+import type {
+  DialogueOption,
+  StoreInventory,
+  StoreOption,
+} from "~/types/optionTypes";
 import { useTheTownStore } from "../stores/theTownStore";
 
-const dialogueData = ref<any>([]);
+const dialogueData = ref<(DialogueOption | StoreOption)[]>([]);
 
 const { optionsToShow, updateShowingOptions } = useTheTownStore();
 
 onMounted(() => {
   if (optionsToShow.length === 0) updateShowingOptions("intro/intro");
   else parseOptions();
-
-  console.log("onMounted::");
 });
 
 const parseOptions = () => {
-  optionsToShow.forEach(async (option: any) => {
-    const fetchedDialogues = await loadDialogue(`/the-town/${option.src}`);
+  optionsToShow.forEach(async (option) => {
+    if (option.type === "dialogue") {
+      const fetchedDialogues = await loadDialogue(
+        `the-town/dialogues/${option.src}`
+      );
 
-    dialogueData.value.push({
-      ...option,
-      data: fetchedDialogues,
-      isOpen: false,
-    });
+      if (fetchedDialogues)
+        dialogueData.value.push({
+          ...(option as DialogueOption),
+          ...fetchedDialogues,
+          isOpen: false,
+        });
+    } else if (option.type === "store") {
+      const storeData: StoreInventory[] | undefined = await loadStore(
+        `the-town/stores/${option.src}`
+      );
+
+      if (storeData)
+        dialogueData.value.push({
+          ...(option as StoreOption),
+          storeData,
+          isOpen: false,
+        });
+    }
   });
-
-  console.log("parseOptions:: ", dialogueData.value);
 };
 
 watch(optionsToShow, async () => {
   dialogueData.value = [];
   parseOptions();
-  console.log("watch::");
 });
 </script>
 
@@ -71,8 +91,6 @@ watch(optionsToShow, async () => {
   gap: 20px;
   width: 100%;
   height: 100%;
-  justify-content: space-between;
-
   padding: 10px;
 }
 </style>

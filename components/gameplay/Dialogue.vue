@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Dialogue } from "~/types/dialogueTypes";
+import type { Dialogue } from "~/types/optionTypes";
 
 const props = defineProps<{
   data: Dialogue[];
