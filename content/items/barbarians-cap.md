@@ -1,5 +1,5 @@
 ---
-id: barbarians-cap
+itemId: barbarians-cap
 iconType: misc
 iconName: placeholder
 name: Barbarians Cap

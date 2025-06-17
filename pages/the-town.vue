@@ -1,7 +1,7 @@
 <template>
   <GameplayContainer>
     <div class="the-town-container">
-      <template v-for="data in dialogueData">
+      <template v-for="data in optionsData">
         <GameplayIcon
           :onClick="() => (data.isOpen = true)"
           :iconType="data.iconType"
@@ -41,7 +41,7 @@ import type {
 } from "~/types/optionTypes";
 import { useTheTownStore } from "../stores/theTownStore";
 
-const dialogueData = ref<(DialogueOption | StoreOption)[]>([]);
+const optionsData = ref<(DialogueOption | StoreOption)[]>([]);
 
 const { optionsToShow, updateShowingOptions } = useTheTownStore();
 
@@ -58,7 +58,7 @@ const parseOptions = () => {
       );
 
       if (fetchedDialogues)
-        dialogueData.value.push({
+        optionsData.value.push({
           ...(option as DialogueOption),
           ...fetchedDialogues,
           isOpen: false,
@@ -69,7 +69,7 @@ const parseOptions = () => {
       );
 
       if (storeData)
-        dialogueData.value.push({
+        optionsData.value.push({
           ...(option as StoreOption),
           storeData,
           isOpen: false,
@@ -79,7 +79,7 @@ const parseOptions = () => {
 };
 
 watch(optionsToShow, async () => {
-  dialogueData.value = [];
+  optionsData.value = [];
   parseOptions();
 });
 </script>

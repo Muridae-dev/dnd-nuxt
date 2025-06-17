@@ -12,3 +12,7 @@ Ability to add if statements
 ## bugs
 
 Something is making the window sometimes move to the right when trying to close it
+
+## Features
+
+Minimize windows & save them in footer

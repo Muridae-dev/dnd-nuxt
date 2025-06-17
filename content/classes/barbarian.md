@@ -1,5 +1,5 @@
 ---
-id: barbarian
+classId: barbarian
 name: Barbarian
 stats:
   strength: 8

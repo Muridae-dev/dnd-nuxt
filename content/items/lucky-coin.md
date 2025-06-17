@@ -1,5 +1,5 @@
 ---
-id: lucky-coin
+itemId: lucky-coin
 name: Lucky Coin
 iconType: items
 iconName: gold-coin

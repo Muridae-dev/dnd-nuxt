@@ -1,5 +1,5 @@
 ---
-id: z-sword
+itemId: z-sword
 name: Z-Sword
 iconType: items
 iconName: z-sword
