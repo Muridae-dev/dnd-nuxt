@@ -1,11 +1,11 @@
 ---
-id: z-sword
+itemId: z-sword
 name: Z-Sword
 iconType: items
 iconName: z-sword
+value: 70
 stats:
   attackPower: 16
-  value: 70
   playerStats:
     strengh: 10
     agility: 2

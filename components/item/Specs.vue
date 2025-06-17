@@ -14,10 +14,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Item } from "~/types/itemTypes";
+import type { ItemsCollectionItem } from "@nuxt/content";
 
 interface SpecsProps {
-  item: Item;
+  item: ItemsCollectionItem;
 }
 
 defineProps<SpecsProps>();
@@ -47,7 +47,8 @@ const formatKey = (key: string) => {
   background: $window-background;
 }
 
-.inventory-cell:hover {
+.inventory-cell:hover,
+.store-item--container:hover {
   .item-specs-container {
     display: inline;
   }

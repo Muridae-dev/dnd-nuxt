@@ -1,10 +1,11 @@
+import type { ItemsCollectionItem } from "@nuxt/content";
+
 export const useInventoryStore = defineStore("inventoryStore", {
-  // TODO: Update these any:s
-  state: (): any => ({
+  state: (): { inventory: ItemsCollectionItem[] } => ({
     inventory: [],
   }),
   actions: {
-    addItem(item: any) {
+    addItem(item: ItemsCollectionItem) {
       this.inventory.push(item);
     },
   },

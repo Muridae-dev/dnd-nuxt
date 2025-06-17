@@ -1,22 +1,11 @@
-import type { Stats } from "./characterTypes";
+import type { ItemsCollectionItem } from "@nuxt/content";
 
 export type GearType = "head" | "chest" | "legs" | "misc";
 
 export type ArmorClass = "mail" | "leather" | "cloth";
 
-export interface Item {
-  id: string;
-  name: string;
-  slot: GearType;
-  stats: Stats;
-  armorValue: number;
-  armorClass: ArmorClass;
-  iconType: string;
-  iconName: string;
-}
-
 export type Gear = {
-  [K in Exclude<GearType, "misc">]: Item | null;
+  [K in Exclude<GearType, "misc">]: ItemsCollectionItem | null;
 } & {
-  misc: Item[];
+  misc: ItemsCollectionItem[];
 };

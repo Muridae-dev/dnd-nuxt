@@ -15,8 +15,8 @@
 
 ## Choices
 
-- Help you with what exactly? → #askHelp
-- Zugzug → #zug
+- Help you with what exactly? #askHelp
+- Zugzug #zug
 
 ---
 
@@ -50,3 +50,5 @@
 
 - Daa bo
 - ZUG
+
+### FINISHED {open: store/store}

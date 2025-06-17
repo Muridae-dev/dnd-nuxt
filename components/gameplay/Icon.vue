@@ -3,8 +3,9 @@
     :is="href ? defineNuxtLink({}) : 'button'"
     @click="onClick"
     :to="href && href"
+    class="icon-container"
   >
-    <figure class="icon--container">
+    <figure class="icon-image--container">
       <img
         :src="`/placeholders/${iconType}/${iconName}.webp`"
         class="image-contrast"
@@ -29,7 +30,12 @@ defineProps<IconProps>();
 </script>
 
 <style lang="scss">
-.icon--container {
+.icon-container {
+  width: fit-content;
+  height: fit-content;
+}
+
+.icon-image--container {
   width: fit-content;
   display: flex;
   flex-direction: column;

@@ -24,7 +24,11 @@
       <button
         v-for="choice in data[currentDialogue].dialogueData[currentPerson]
           .choices"
-        @click="currentChoice = choice.split('#')[1]"
+        @click="
+          choice.includes('#')
+            ? (currentChoice = choice.split('#')[1])
+            : finish()
+        "
       >
         - {{ choice.split("#")[0] }}
       </button>
@@ -33,9 +37,13 @@
 </template>
 
 <script setup lang="ts">
-import type { Dialogue } from "~/types/dialogueTypes";
+import type { Dialogue } from "~/types/optionTypes";
 
-const props = defineProps<{ data: Dialogue[] }>();
+const props = defineProps<{
+  data: Dialogue[];
+  finished: any;
+  closeWindow: () => void;
+}>();
 
 const currentDialogue = ref(0);
 const scrollingText = ref("");
@@ -65,6 +73,13 @@ watch(currentChoice, () => {
 onMounted(() => {
   typeWriter();
 });
+
+const finish = () => {
+  if (props.finished.open) {
+    const { updateShowingOptions } = useTheTownStore();
+    updateShowingOptions(props.finished.open);
+  }
+};
 
 const typeWriter = () => {
   const currentText =

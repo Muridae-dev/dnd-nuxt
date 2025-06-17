@@ -1,12 +1,27 @@
 <template>
   <GameplayContainer>
     <div class="the-town-container">
-      <GameplayIcon
-        :onClick="() => (isDialogueOpen = !isDialogueOpen)"
-        iconType="npcs"
-        iconName="wise-man"
-        title="Open Dialogue"
-      />
+      <template v-for="data in optionsData">
+        <GameplayIcon
+          :onClick="() => (data.isOpen = true)"
+          :iconType="data.iconType"
+          :iconName="data.iconName"
+          :title="data.title"
+        />
+
+        <Window v-if="data.isOpen" :closeWindow="() => (data.isOpen = false)"
+          ><GameplayDialogue
+            v-if="data.type === 'dialogue'"
+            :data="data.dialogues"
+            :finished="data.finished"
+            :closeWindow="() => (data.isOpen = false)"
+          />
+          <GameplayStore
+            v-else-if="data.type === 'store'"
+            :storeData="data.storeData"
+          />
+        </Window>
+      </template>
 
       <GameplayIcon
         iconType="misc"
@@ -14,21 +29,58 @@
         title="Return to Dashboard"
         href="/"
       />
-
-      <Window
-        v-if="isDialogueOpen"
-        :closeWindow="() => (isDialogueOpen = false)"
-        ><GameplayDialogue v-if="data" :data="data"
-      /></Window>
     </div>
   </GameplayContainer>
 </template>
 
 <script setup lang="ts">
-const isDialogueOpen = ref(false);
+import type {
+  DialogueOption,
+  StoreInventory,
+  StoreOption,
+} from "~/types/optionTypes";
+import { useTheTownStore } from "../stores/theTownStore";
 
-const { data } = await useAsyncData("content", () => loadDialogue(), {
-  server: true,
+const optionsData = ref<(DialogueOption | StoreOption)[]>([]);
+
+const { optionsToShow, updateShowingOptions } = useTheTownStore();
+
+onMounted(() => {
+  if (optionsToShow.length === 0) updateShowingOptions("intro/intro");
+  else parseOptions();
+});
+
+const parseOptions = () => {
+  optionsToShow.forEach(async (option) => {
+    if (option.type === "dialogue") {
+      const fetchedDialogues = await loadDialogue(
+        `the-town/dialogues/${option.src}`
+      );
+
+      if (fetchedDialogues)
+        optionsData.value.push({
+          ...(option as DialogueOption),
+          ...fetchedDialogues,
+          isOpen: false,
+        });
+    } else if (option.type === "store") {
+      const storeData: StoreInventory[] | undefined = await loadStore(
+        `the-town/stores/${option.src}`
+      );
+
+      if (storeData)
+        optionsData.value.push({
+          ...(option as StoreOption),
+          storeData,
+          isOpen: false,
+        });
+    }
+  });
+};
+
+watch(optionsToShow, async () => {
+  optionsData.value = [];
+  parseOptions();
 });
 </script>
 
@@ -37,9 +89,8 @@ const { data } = await useAsyncData("content", () => loadDialogue(), {
   display: flex;
   flex-direction: row;
   gap: 20px;
-  align-items: flex-start;
-  width: fit-content;
-
+  width: 100%;
+  height: 100%;
   padding: 10px;
 }
 </style>

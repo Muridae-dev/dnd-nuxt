@@ -85,6 +85,7 @@ defineProps<WindowProps>();
 <style lang="scss">
 .window-container {
   position: absolute;
+  z-index: 10;
 
   border-radius: $border-radius-size;
   border: $border;

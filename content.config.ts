@@ -6,7 +6,7 @@ export default defineContentConfig({
       source: "classes/*.md",
       type: "data",
       schema: z.object({
-        id: z.string(),
+        classId: z.string(),
         name: z.string(),
         stats: z.record(z.number()),
       }),
@@ -15,16 +15,16 @@ export default defineContentConfig({
       source: "items/*.md",
       type: "data",
       schema: z.object({
-        id: z.string(),
+        itemId: z.string(),
         name: z.string(),
         iconType: z.string(),
         iconName: z.string(),
+        value: z.number().optional(),
+        slot: z.string().optional(),
         stats: z.object({
           attackPower: z.number().optional(),
           armorValue: z.number().optional(),
           armorClass: z.enum(["cloth", "leather", "mail"]).optional(),
-
-          value: z.number(),
 
           playerStats: z.record(z.number()).optional(),
         }),

@@ -95,6 +95,7 @@ const bringToFront = (e: Event) => {
 <style lang="scss">
 .map-container {
   height: 100%;
+  z-index: -1;
 
   display: flex;
   justify-content: center;
