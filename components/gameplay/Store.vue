@@ -1,19 +1,23 @@
 <template>
   <div class="store--container">
-    <div
-      v-if="data"
-      v-for="item in data.filter((d) => d != null)"
-      class="store-item--container"
-    >
-      <div class="store-item--image">
-        <ItemThumbnail :item="item" />
-      </div>
-      <div class="store-item--info">
-        <span>{{ item.name }}</span>
-        <span>Price: {{ item.value }}g</span>
-      </div>
-      <ItemSpecs :item="item" />
+    <div class="store--grid">
+      <button
+        v-if="data"
+        v-for="item in data.filter((d) => d != null)"
+        class="store--item"
+        @click="inventoryStore.buyItem(item)"
+      >
+        <div class="store--item-image">
+          <ItemThumbnail :item="item" />
+        </div>
+        <div class="store--item-info">
+          <span>{{ item.name }}</span>
+          <span>Price: {{ item.value }}g</span>
+        </div>
+        <ItemSpecs :item="item" />
+      </button>
     </div>
+    <CharacterMoney :gold="inventoryStore.gold" />
   </div>
 </template>
 
@@ -21,6 +25,8 @@
 import type { StoreInventory } from "~/types/optionTypes";
 
 const props = defineProps<{ storeData: StoreInventory[] }>();
+
+const inventoryStore = useInventoryStore();
 
 const { data } = await useAsyncData("storeData", async () => {
   return await Promise.all(
@@ -32,10 +38,9 @@ const { data } = await useAsyncData("storeData", async () => {
 </script>
 
 <style lang="scss">
-.store--container {
+.store--grid {
   position: relative;
   padding: $inventory-cell-gap;
-  cursor: pointer;
 
   display: grid;
   grid-template-rows: repeat(5, 70px);
@@ -43,18 +48,19 @@ const { data } = await useAsyncData("storeData", async () => {
   gap: $inventory-cell-gap;
 }
 
-.store-item--container {
+.store--item {
   position: relative;
-  width: 250px;
   display: flex;
   align-items: center;
   gap: 10px;
+
+  cursor: pointer;
 
   border: 1px solid black;
   background: $item-cell-background;
 }
 
-.store-item--image {
+.store--item-image {
   height: 100%;
 
   img {
@@ -62,7 +68,7 @@ const { data } = await useAsyncData("storeData", async () => {
   }
 }
 
-.store-item--info {
+.store--item-info {
   display: flex;
   flex-direction: column;
 }

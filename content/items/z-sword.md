@@ -7,7 +7,7 @@ value: 70
 stats:
   attackPower: 16
   playerStats:
-    strengh: 10
+    strength: 10
     agility: 2
 ---
 

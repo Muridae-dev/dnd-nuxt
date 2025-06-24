@@ -9,9 +9,11 @@
 
       <div
         class="inventory-cell"
-        v-for="n in 25 - inventoryStore.inventory.length"
+        v-for="n in inventoryStore.inventorySize -
+        inventoryStore.inventory.length"
       ></div>
     </div>
+    <CharacterMoney :gold="inventoryStore.gold" />
   </div>
 </template>
 
