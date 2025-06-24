@@ -7,25 +7,16 @@
     <div class="class-stats" v-for="stat in Object.entries(data?.stats)">
       <span>{{ stat[0] }}:</span><span>{{ stat[1] }}</span>
     </div>
-    <!-- <pre>{{ data }}</pre> -->
   </div>
 </template>
 
 <script setup lang="ts">
+import type { ClassesCollectionItem } from "@nuxt/content";
 import { useAsyncData } from "nuxt/app";
-import type { Stats } from "~/types/characterTypes";
-import type { MinimalBody } from "~/types/mdTypes";
 
-interface CharacterData {
-  name: string;
-  stats: Stats;
-  meta: {
-    body?: MinimalBody;
-  };
-}
-
-const { data } = await useAsyncData<CharacterData | null>("characterData", () =>
-  queryCollection("classes").first()
+const { data } = await useAsyncData<ClassesCollectionItem | null>(
+  "characterData",
+  () => queryCollection("classes").first()
 );
 </script>
 
