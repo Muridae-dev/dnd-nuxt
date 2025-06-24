@@ -13,7 +13,9 @@
       @mousedown="moveWindow"
       @mouseup="stopWindowMovement"
     >
-      <button class="window-close--button" @click="closeWindow">X</button>
+      <button class="window-close--button" @click="closeWindow">
+        <span>X</span>
+      </button>
     </div>
     <slot />
   </div>
@@ -129,9 +131,13 @@ defineProps<WindowProps>();
 
   filter: invert(100%);
   background: $window-top-bar-color;
-  color: black;
 
   font-family: DS-Digital;
   font-size: 1.1rem;
+
+  span {
+    color: $window-top-bar-color;
+    filter: invert(100%);
+  }
 }
 </style>

@@ -78,6 +78,7 @@ const finish = () => {
   if (props.finished.open) {
     const { updateShowingOptions } = useTheTownStore();
     updateShowingOptions(props.finished.open);
+    props.closeWindow();
   }
 };
 
@@ -116,6 +117,16 @@ const updateDialogue = () => {
     props.data[currentDialogue.value].dialogueData[currentPerson.value].choices
   ) {
     isMakingAChoice.value = true;
+  }
+  // If there's no further dialogue in said tree
+  else if (
+    currentPhrase.value ===
+      props.data[currentDialogue.value].dialogueData[currentPerson.value]
+        .dialogue.length &&
+    !props.data[currentDialogue.value].dialogueData[currentPerson.value + 1] &&
+    !props.data[currentDialogue.value].dialogueData[currentPerson.value].choices
+  ) {
+    finish();
   }
 
   scrollingText.value = "";

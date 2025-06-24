@@ -43,11 +43,10 @@ import { useTheTownStore } from "../stores/theTownStore";
 
 const optionsData = ref<(DialogueOption | StoreOption)[]>([]);
 
-const { optionsToShow, updateShowingOptions } = useTheTownStore();
+const { optionsToShow } = useTheTownStore();
 
 onMounted(() => {
-  if (optionsToShow.length === 0) updateShowingOptions("intro/intro");
-  else parseOptions();
+  parseOptions();
 });
 
 const parseOptions = () => {

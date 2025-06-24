@@ -18,16 +18,30 @@ export const useTheTownStore = defineStore("theTownStore", {
         src: "store/store",
       },
     ],
-    optionsToShow: [],
+    optionsToShow: [
+      {
+        type: "dialogue",
+        iconType: "npcs",
+        iconName: "wise-man",
+        title: "Open Dialogue",
+        src: "intro/intro",
+      },
+    ],
   }),
   actions: {
-    updateShowingOptions(src: string) {
-      const index = this.options.findIndex((option: any) => option.src === src);
+    updateShowingOptions(optionSrc: string) {
+      const indexOfOption = this.options.findIndex(
+        (option) => option.src === optionSrc
+      );
       if (
-        index !== -1 &&
-        !this.optionsToShow.find((option: any) => option.src === src)
+        indexOfOption !== -1 &&
+        !this.optionsToShow.find((option) => option.src === optionSrc)
       ) {
-        this.optionsToShow.push(this.options[index]);
+        this.optionsToShow.push(this.options[indexOfOption]);
+        const { addNotification } = useNotificationStore();
+        addNotification({
+          message: `${this.options[indexOfOption].title} is now available`,
+        });
       }
     },
   },

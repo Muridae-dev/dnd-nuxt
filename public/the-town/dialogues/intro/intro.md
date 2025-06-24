@@ -30,12 +30,6 @@
 
 - We need you to fend them off for good, show them the meaning of fear.
 
-[if:hasKilledBandits]
-
-> I see you've already finished them off, that's good...
-> And what is that you posses there?
-> Give it to me...
-
 ---
 
 ### zug
